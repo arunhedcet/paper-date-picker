@@ -2,7 +2,7 @@
   "name": "paper-date-picker",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "neon-animated-pages": "Polymer/neon-animated-pages#^1.0.0",
+    "neon-animated-pages": "Polymer/neon-animation#^1.0.0",
     "paper-dialog": "Polymer/paper-dialog#^1.0.0",
     "paper-button": "polymer/paper-button#^1.0.0",
     "paper-ripple": "polymer/paper-ripple#^1.0.0"

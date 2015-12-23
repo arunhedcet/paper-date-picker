@@ -27,37 +27,37 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
 -->
 
 <link href="../polymer/polymer.html" rel="import">
-<link href="../paper-dialog/paper-action-dialog.html" rel="import">
+<link href="../paper-dialog/paper-dialog.html" rel="import">
 <link href="../paper-button/paper-button.html" rel="import">
-<link href="../core-animated-pages/core-animated-pages.html" rel="import">
+<link href="../neon-animated-pages/neon-animated-pages.html" rel="import">
 
 <link href="paper-date-picker.html" rel="import">
 <link href="paper-year-picker.html" rel="import">
 
-<style shim-shadowdom>
-  html /deep/ .date-picker-dialog::shadow #scroller {
+<style is="custom-style">
+ .date-picker-dialog #scroller {
     padding:0px;
   }
 
-  html /deep/ .date-picker-dialog .header {
+   .date-picker-dialog .header {
     text-align: center;
     color: rgba(255,255,255,.5);
     background-color: #009688;
   }
   
-  html /deep/ .date-picker-dialog .header .dayOfWeekContainer {
+ .date-picker-dialog .header .dayOfWeekContainer {
     padding: 5px;
     background-color: #00695C;
   }
   
-  html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
+   .date-picker-dialog .header .dayOfMonthContainer {
     cursor: pointer;
     display:flex;
     align-items:center;
     justify-content:center;
   }
   
-  html /deep/ .date-picker-dialog .header .monthContainer {
+   .date-picker-dialog .header .monthContainer {
     cursor: pointer;
     font-size: 24px;
     display:flex;
@@ -67,7 +67,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     font-weight: 300;
   }
   
-  html /deep/ .date-picker-dialog .header .yearContainer {
+   .date-picker-dialog .header .yearContainer {
     cursor: pointer;
     font-size: 24px;
     display:flex;
@@ -77,43 +77,44 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     font-weight: 400;
   }
   
-  html /deep/ .date-picker-dialog .datePickerContainer {
+   .date-picker-dialog .datePickerContainer {
     height: 255px;
     width: 280px;
   }
-  html /deep/ .date-picker-dialog #datePicker {
+ .date-picker-dialog #datePicker {
     width: 280px;
   }
   
-  html /deep/ .date-picker-dialog .selected {
+ .date-picker-dialog .selected {
     color: #FFFFFF;
   }
   
   @media only screen and (orientation : portrait) {
-    html /deep/ .date-picker-dialog .header .yearContainer{
+ 
+    .date-picker-dialog .header .yearContainer{
       padding-bottom:10px;
     }
-    html /deep/ .date-picker-dialog .header .monthContainer{
+  .date-picker-dialog .header .monthContainer{
       padding-top:10px;
     }
-    html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
+     .date-picker-dialog .header .dayOfMonthContainer {
       font-size: 60px;
       min-height: 60px;
     }
   }
   @media only screen and (orientation : landscape) {
-    html /deep/ .date-picker-dialog {
+    .date-picker-dialog {
       width:570px;
     }
     
     /* the second selector is for the polyfill version */
-    html /deep/ .date-picker-dialog >  #container , html /deep/ .date-picker-dialog #scroller >  #container {
+    .date-picker-dialog >  #container , .date-picker-dialog #scroller >  #container {
       display:flex;
       flex-direction: row;
       overflow:hidden;
     }
     
-    html /deep/ .date-picker-dialog .header .dayOfMonthContainer {
+    .date-picker-dialog .header .dayOfMonthContainer {
       font-size: 89px;
       min-height: 89px;
     }
@@ -121,7 +122,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
   
 </style>
 
-<polymer-element name="paper-date-picker-dialog">
+<dom-module id="paper-date-picker-dialog">
   
 <template>
 
@@ -131,27 +132,29 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     }
   </style>
 
-  <paper-action-dialog id="dialog" class="date-picker-dialog" backdrop on-core-overlay-open-completed="{{dialogOpened}}">
+  <paper-dialog id="dialog" class="date-picker-dialog" modal
+  iron-overlay-opened="dialogOpened">
     <div id="container">
-      <div class="header" layout vertical flex>
+      <div class="header layout vertical flex">
         <div class="dayOfWeekContainer selected">{{ dayOfWeek }}</div>
-        <div class="monthContainer selected" on-tap="{{ showDatePicker }}" id="month" flex><span>{{ monthShortName }}</span></div>
-        <div class="dayOfMonthContainer selected" on-tap="{{ showDatePicker }}" id="day" flex><span>{{ dayOfMonth }}</span></div>
-        <div class="yearContainer" id="year" on-tap="{{ showYearPicker }}" flex><span>{{ formattedYear }}</span></div>
+        <div class="monthContainer selected flex" on-tap="showDatePicker" id="month"><span>{{ monthShortName }}</span></div>
+        <div class="dayOfMonthContainer selected flex" on-tap="showDatePicker" id="day"><span>{{ dayOfMonth }}</span></div>
+        <div class="yearContainer flex" id="year" on-tap="showYearPicker"><span>{{ formattedYear }}</span></div>
       </div>
-      <core-animated-pages transitions="cross-fade" class="datePickerContainer" selected="{{page}}">
+      <neon-animated-pages class="datePickerContainer" selected="{{page}}">
         <section>
-          <paper-date-picker id="datePicker" min="{{min}}" max="{{max}}" date="{{ immediateDate }}" infiniteScrolling="{{infiniteScrolling}}" locale="{{locale}}" startDayOfWeek="{{startDayOfWeek}}" cross-fade></paper-date-picker>
+          <paper-date-picker id="datePicker" min="{{min}}" max="{{max}}" date="{{ immediateDate }}" infiniteScrolling="{{infiniteScrolling}}" locale="{{locale}}" startDayOfWeek="{{startDayOfWeek}}"></paper-date-picker>
         </section>
         <section>
-          <paper-year-picker id="yearPicker" min="{{min}}" max="{{max}}" year="{{ year }}" locale="{{locale}}" cross-fade></paper-year-picker>
+          <paper-year-picker id="yearPicker" min="{{min}}" max="{{max}}" year="{{ year }}" locale="{{locale}}"></paper-year-picker>
         </section>
-      </core-animated-pages>
+      </neon-animated-pages>
     </div>
+    <div class="buttons">
     <paper-button affirmative>Cancel</paper-button>
-    <paper-button affirmative on-tap={{setDate}}>OK</paper-button>
-
-  </paper-action-dialog>
+    <paper-button affirmative on-tap="setDate" autofocus>OK</paper-button>
+    </div>
+  </paper-dialog>
 </template>
 
 <script>
@@ -182,8 +185,9 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
     'DEC'
   ];
 
-  Polymer('paper-date-picker-dialog', {
-    publish: {
+Polymer({
+    is:'paper-date-picker-dialog',
+    properties: {
       
       /**
        * `value`, the selected date.
@@ -192,7 +196,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type String
        * @default undefined
        */
-      value: undefined,
+value:{type:String,value:undefined},
       
       /**
        * immediateDate, the currently selected
@@ -202,7 +206,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type Date
        * @default today
        */
-      immediateDate: new Date(),
+  immediateDate: {type:Object , value: new Date()},
         
       /**
        * Lowest selectable date (inclusive)
@@ -211,7 +215,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type Date
        * @default 1/1/1900
        */
-      min: new Date(1900,0,1),
+    min: {type:Object , value: new Date(1900,0,1)},
       
       /**
        * Highest selectable date (inclusive)
@@ -220,7 +224,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type Date
        * @default 31/12/2100
        */
-      max: new Date(2100,11,31),
+      max: {type:Object , value: new Date(2100,11,31)},
         
       /**
        * Show only a single year at a time
@@ -232,7 +236,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @type String or boolean
        * @default 'auto'
        */
-      infiniteScrolling: 'auto',
+        infiniteScrolling: {type:String , value: 'auto'},
         
       /**
        * Locale setting per the HTML5 Intl API
@@ -242,7 +246,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default user system
        * 
        */
-      locale: undefined,
+          locale: {type:Array , value: undefined},
       
       /**
        * Start day of week, expressed as 0-6
@@ -252,7 +256,7 @@ The date picker dialog fires `value-changed` and `selection-changed` events when
        * @default 1
        * 
        */
-      startDayOfWeek: 1
+            startDayOfWeek: {type:Integer , value: 1}
     },
     
     dayOfWeek: '',

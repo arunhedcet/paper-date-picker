@@ -171,7 +171,7 @@ Example:
          * @type Date
          * @default 'today\'s date'
          */
-      date:{type:Object,value:new Date()},
+      date:{type:Date,value:new Date()},
         
         /**
          * Lowest selectable date (inclusive)
@@ -180,7 +180,7 @@ Example:
          * @type Date
          * @default 1/1/1900
          */
-      min: {type:Object,value:new Date(1900,0,1)},
+      min: {type:Date,value:new Date(1900,0,1)},
         
         /**
          * Highest selectable date (inclusive)
@@ -189,7 +189,7 @@ Example:
          * @type Date
          * @default 31/12/2100
          */
-      max:{type:Object,value: new Date(2100,11,31)},
+      max:{type:Date,value: new Date(2100,11,31)},
         
         /**
          * Show only a single year at a time

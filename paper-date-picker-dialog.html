@@ -206,7 +206,7 @@ value:{type:String,value:undefined},
        * @type Date
        * @default today
        */
-  immediateDate: {type:Object , value: new Date()},
+  immediateDate: {type:Date , value: new Date()},
         
       /**
        * Lowest selectable date (inclusive)
@@ -215,7 +215,7 @@ value:{type:String,value:undefined},
        * @type Date
        * @default 1/1/1900
        */
-    min: {type:Object , value: new Date(1900,0,1)},
+    min: {type:Date , value: new Date(1900,0,1)},
       
       /**
        * Highest selectable date (inclusive)
@@ -224,7 +224,7 @@ value:{type:String,value:undefined},
        * @type Date
        * @default 31/12/2100
        */
-      max: {type:Object , value: new Date(2100,11,31)},
+      max: {type:Date , value: new Date(2100,11,31)},
         
       /**
        * Show only a single year at a time
@@ -256,7 +256,7 @@ value:{type:String,value:undefined},
        * @default 1
        * 
        */
-            startDayOfWeek: {type:Integer , value: 1}
+            startDayOfWeek: {type:Number , value: 1}
     },
     
     dayOfWeek: '',
